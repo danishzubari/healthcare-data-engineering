@@ -17,7 +17,8 @@ import requests
 
 CMS_BASE_URL = "https://data.cms.gov/provider-data/api/1"
 DATASET_ID = "mj5m-pzi6"
-PAGE_SIZE = 2000
+# CMS documents a maximum batch size of 1,500 for the Provider Data Catalog API.
+PAGE_SIZE = 1500
 REQUIRED_COLUMNS = {"npi", "pri_spec", "state", "telehlth"}
 
 LOGGER = logging.getLogger(__name__)
