@@ -4,6 +4,12 @@
 
 An end-to-end data engineering portfolio project built around public US healthcare data from the Centers for Medicare & Medicaid Services (CMS).
 
+## Live project
+
+**GitHub Pages:** `https://danishzubari.github.io/healthcare-data-engineering/`
+
+The Pages site is built from generated analytics produced by the automated pipeline.
+
 ## Architecture
 
 ```text
@@ -27,12 +33,15 @@ Standardization + deduplication
 State / specialty aggregates
           |
           v
-Interactive GitHub Pages dashboard
+Interactive dashboard
+          |
+          v
+GitHub Pages
 ```
 
 ## Engineering capabilities demonstrated
 
-- REST/API-style healthcare data ingestion
+- REST/API healthcare data ingestion
 - Pagination and retry/backoff
 - Raw-to-analytics transformation
 - Schema and data-quality validation
@@ -40,7 +49,8 @@ Interactive GitHub Pages dashboard
 - Analytical SQL
 - Automated tests with pytest
 - GitHub Actions CI/CD
-- Static web publishing through GitHub Pages
+- Automated GitHub Pages deployment
+- Static JavaScript dashboard
 
 ## Data source
 
@@ -53,16 +63,20 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Development run: ingest 10,000 records
+# Development run
 python -m src.ingestion.run_pipeline --max-rows 10000
 
-# Full source run: omit --max-rows
+# Full source run
 python -m src.ingestion.run_pipeline
 
 pytest -q
 ```
 
 The pipeline writes the raw extract to `data/raw/providers.csv` and compact analytical outputs to `data/analytics/`.
+
+## Automated deployment
+
+Every push to `main` runs tests, executes a 10,000-row CMS pipeline build, generates dashboard datasets, and deploys the `dashboard/` directory to GitHub Pages. A manual full-size run can be triggered later when the workflow is adjusted for the desired refresh size.
 
 ## Repository structure
 
@@ -74,23 +88,14 @@ src/quality/           data quality checks
 src/analytics/         analytical metrics
 tests/                 automated tests
 sql/                   analytical SQL
-dashboard/             GitHub Pages site
+dashboard/             GitHub Pages application
 docs/                  architecture and methodology
-data/analytics/        small generated dashboard datasets
+data/analytics/        compact generated dashboard datasets
 ```
 
-## Roadmap
+## Portfolio talking points
 
-- [x] Repository foundation
-- [x] CMS paginated ingestion client
-- [x] Retry/backoff and schema validation
-- [x] Transformation and analytics modules
-- [x] Analytical SQL
-- [x] Automated tests
-- [ ] Production pipeline run in GitHub Actions
-- [ ] Interactive KPI dashboard
-- [ ] GitHub Pages deployment
-- [ ] Data-quality report in dashboard
+This project is deliberately structured as an engineering system rather than a notebook-only analysis. The key design decision is to keep large raw source data outside Git while generating small, versionable analytical outputs for the presentation layer. The workflow provides a reproducible path from an external healthcare source to a public data product.
 
 ## Responsible use
 
