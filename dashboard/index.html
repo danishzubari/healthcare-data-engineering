@@ -10,35 +10,35 @@
   <main class="container">
     <header>
       <p class="eyebrow">DATA ENGINEERING PORTFOLIO</p>
-      <h1>Healthcare Data Engineering Platform</h1>
-      <p class="lead">An end-to-end pipeline for ingesting, validating, transforming and analyzing public US healthcare data.</p>
+      <h1>US Healthcare Provider Intelligence</h1>
+      <p class="lead">An automated data engineering pipeline built on public CMS provider data — from API ingestion to quality checks, analytics and GitHub Pages.</p>
+      <p id="status" class="status">Loading latest pipeline output…</p>
     </header>
 
-    <section class="cards">
-      <article><strong>CMS</strong><span>Public healthcare data source</span></article>
-      <article><strong>Python</strong><span>Ingestion & transformation</span></article>
-      <article><strong>SQL</strong><span>Analytics layer</span></article>
-      <article><strong>CI/CD</strong><span>Automated GitHub workflow</span></article>
+    <section class="cards" id="kpis">
+      <article><strong id="records">—</strong><span>Records processed</span></article>
+      <article><strong id="states">—</strong><span>States / territories</span></article>
+      <article><strong id="specialties">—</strong><span>Primary specialties</span></article>
+      <article><strong id="telehealth">—</strong><span>Telehealth records</span></article>
     </section>
 
     <section class="panel">
-      <h2>Pipeline</h2>
-      <div class="pipeline">CMS → Ingest → Validate → Transform → Analyze → Publish</div>
+      <h2>Engineering pipeline</h2>
+      <div class="pipeline">CMS API → Ingest → Validate → Transform → Analytics → Publish</div>
+    </section>
+
+    <section class="grid">
+      <section class="panel"><h2>Providers by state</h2><div id="stateChart" class="chart"></div></section>
+      <section class="panel"><h2>Top specialties</h2><div id="specialtyChart" class="chart"></div></section>
     </section>
 
     <section class="panel">
-      <h2>Project status</h2>
-      <ul>
-        <li>Repository foundation: complete</li>
-        <li>Reusable ingestion client: complete</li>
-        <li>Data quality framework: complete</li>
-        <li>Automated tests: complete</li>
-        <li>CMS production dataset: next</li>
-        <li>Interactive healthcare KPIs: next</li>
-      </ul>
+      <h2>What this demonstrates</h2>
+      <div class="skills"><span>REST ingestion</span><span>Pagination & retries</span><span>Data quality</span><span>Python</span><span>SQL</span><span>Testing</span><span>GitHub Actions</span><span>GitHub Pages</span></div>
     </section>
 
-    <footer>Built as a reproducible data engineering portfolio project.</footer>
+    <footer>Source: Centers for Medicare & Medicaid Services (CMS) Provider Data Catalog. Engineering demonstration only; not clinical decision support.</footer>
   </main>
+  <script src="app.js"></script>
 </body>
 </html>
