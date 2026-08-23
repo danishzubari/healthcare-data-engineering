@@ -1,0 +1,17 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #f4f7fb; color: #172033; }
+.container { max-width: 1080px; margin: 0 auto; padding: 64px 24px; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; font-weight: 700; }
+h1 { font-size: clamp(38px, 7vw, 72px); line-height: 1; margin: 12px 0 20px; max-width: 900px; }
+.lead { font-size: 20px; line-height: 1.6; max-width: 760px; color: #536078; }
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 40px 0; }
+.cards article, .panel { background: white; border: 1px solid #e3e8f0; border-radius: 16px; padding: 24px; box-shadow: 0 8px 24px rgba(20,30,50,.05); }
+.cards strong { display: block; font-size: 22px; margin-bottom: 8px; }
+.cards span { color: #667085; font-size: 14px; }
+.panel { margin: 18px 0; }
+.panel h2 { margin-top: 0; }
+.pipeline { font-size: 20px; font-weight: 650; overflow-x: auto; white-space: nowrap; padding: 18px 0; }
+li { margin: 10px 0; }
+footer { color: #667085; padding-top: 30px; }
+@media (max-width: 760px) { .cards { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 460px) { .cards { grid-template-columns: 1fr; } }
