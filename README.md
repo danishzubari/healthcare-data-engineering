@@ -4,63 +4,71 @@
 
 An end-to-end data engineering portfolio project built around public US healthcare data from the Centers for Medicare & Medicaid Services (CMS).
 
-The project demonstrates API/data ingestion, data quality, transformation, analytics modeling, automated testing, CI/CD, and publication through GitHub Pages.
-
 ## Architecture
 
 ```text
-CMS public data
-      |
-      v
-Python ingestion
-      |
-      v
-Raw data layer
-      |
-      v
-Validation + quality checks
-      |
-      v
-Transformation / analytical model
-      |
-      +------> SQL analytics
-      |
-      v
-Static dashboard
-      |
-      v
-GitHub Pages
-
-GitHub Actions automates the pipeline and deployment.
+CMS Provider Data Catalog
+          |
+          v
+Paginated Python ingestion
+          |
+          v
+Raw provider dataset
+          |
+          v
+Schema + data-quality checks
+          |
+          v
+Standardization + deduplication
+          |
+          +------> SQL analytics
+          |
+          v
+State / specialty aggregates
+          |
+          v
+Interactive GitHub Pages dashboard
 ```
 
-## Project goals
+## Engineering capabilities demonstrated
 
-- Build a reproducible healthcare data pipeline.
-- Separate extraction, transformation, quality, and analytics concerns.
-- Produce small, versionable analytical outputs rather than committing large raw files.
-- Demonstrate production-oriented engineering practices in a public repository.
-
-## Technology
-
-- Python
-- Pandas
-- Requests
-- SQL
-- Pytest
-- GitHub Actions
-- GitHub Pages
-- HTML / CSS / JavaScript
+- REST/API-style healthcare data ingestion
+- Pagination and retry/backoff
+- Raw-to-analytics transformation
+- Schema and data-quality validation
+- Duplicate handling
+- Analytical SQL
+- Automated tests with pytest
+- GitHub Actions CI/CD
+- Static web publishing through GitHub Pages
 
 ## Data source
 
-The first pipeline targets the CMS Provider Data Catalog and the Doctors & Clinicians dataset. See `docs/methodology.md` for source and methodology notes.
+The initial source is the CMS Provider Data Catalog **Doctors & Clinicians** dataset (`mj5m-pzi6`). The pipeline uses the CMS datastore API and does not commit the full source dataset to Git.
+
+## Run locally
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
+# Development run: ingest 10,000 records
+python -m src.ingestion.run_pipeline --max-rows 10000
+
+# Full source run: omit --max-rows
+python -m src.ingestion.run_pipeline
+
+pytest -q
+```
+
+The pipeline writes the raw extract to `data/raw/providers.csv` and compact analytical outputs to `data/analytics/`.
 
 ## Repository structure
 
 ```text
 .github/workflows/     CI and deployment automation
-src/ingestion/         CMS extraction
+src/ingestion/         CMS extraction and pipeline runner
 src/transformation/   cleaning and standardization
 src/quality/           data quality checks
 src/analytics/         analytical metrics
@@ -71,29 +79,19 @@ docs/                  architecture and methodology
 data/analytics/        small generated dashboard datasets
 ```
 
-## Run locally
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python -m src.ingestion.cms_api
-python -m src.transformation.transform
-python -m src.analytics.metrics
-pytest
-```
-
-## Engineering roadmap
+## Roadmap
 
 - [x] Repository foundation
-- [x] Modular pipeline skeleton
-- [x] Automated quality checks
-- [x] CI workflow
-- [ ] CMS production ingestion
-- [ ] Provider analytical model
-- [ ] Healthcare KPI dashboard
+- [x] CMS paginated ingestion client
+- [x] Retry/backoff and schema validation
+- [x] Transformation and analytics modules
+- [x] Analytical SQL
+- [x] Automated tests
+- [ ] Production pipeline run in GitHub Actions
+- [ ] Interactive KPI dashboard
 - [ ] GitHub Pages deployment
+- [ ] Data-quality report in dashboard
 
 ## Responsible use
 
-This project uses public aggregate/provider metadata for engineering demonstration. It is not a clinical decision-support system and should not be used to make medical decisions.
+This project uses public provider metadata for engineering demonstration. It is not a clinical decision-support system and should not be used to make medical decisions.
